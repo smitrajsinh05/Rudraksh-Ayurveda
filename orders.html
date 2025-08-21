@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Orders - Rudraksh Ayurveda</title>
+  <style>
+    body {margin:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f9f9f9;color:#333;}
+    header {background:#2c3e50;color:white;padding:1rem 2rem;position:sticky;top:0;z-index:1000;}
+    nav {display:flex;justify-content:space-between;align-items:center;}
+    nav .logo{font-size:1.5rem;font-weight:bold;color:white;text-decoration:none;}
+    nav .nav-links{list-style:none;display:flex;gap:1rem;margin:0;padding:0;}
+    nav .nav-links li a{color:white;text-decoration:none;}
+    nav .nav-links li a:hover{color:#27ae60;}
+    .nav-buttons{display:flex;gap:1rem;align-items:center;}
+    .cart-btn{background:#27ae60;color:white;padding:0.5rem 1rem;border-radius:5px;text-decoration:none;transition:background .3s;}
+    .cart-btn:hover{background:#219150;}
+    main{padding:2rem;}
+    h1{color:#2c3e50;}
+    .orders-container{background:white;padding:2rem;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,0.05);}
+    table{width:100%;border-collapse:collapse;margin-top:1rem;}
+    th,td{padding:1rem;text-align:left;border-bottom:1px solid #ddd;}
+    th{background:#27ae60;color:white;}
+    .status{padding:0.3rem 0.6rem;border-radius:5px;font-size:0.9rem;color:white;}
+    .pending{background:#f39c12;}
+    .shipped{background:#2980b9;}
+    .delivered{background:#27ae60;}
+    .cancelled{background:#c0392b;}
+    footer{background:#2c3e50;color:white;text-align:center;padding:2rem;margin-top:2rem;}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo">🌿 Rudraksh Ayurveda</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <a href="orders.html" class="cart-btn">📦 Orders</a>
+      </div>
+    </nav>
+  </header>
+  <!-- Main -->
+  <main>
+    <div class="orders-container">
+      <h1>Your Orders</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Product</th>
+            <th>Date</th>
+            <th>Total (₹)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="orders-list">
+          <tr>
+            <td>#1001</td>
+            <td>Chyawanprash (500g)</td>
+            <td>15 Aug 2025</td>
+            <td>350</td>
+            <td><span class="status delivered">Delivered</span></td>
+          </tr>
+          <tr>
+            <td>#1002</td>
+            <td>Triphala Powder (200g)</td>
+            <td>17 Aug 2025</td>
+            <td>180</td>
+            <td><span class="status pending">Pending</span></td>
+          </tr>
+          <tr>
+            <td>#1003</td>
+            <td>Ashwagandha Capsules (60)</td>
+            <td>18 Aug 2025</td>
+            <td>420</td>
+            <td><span class="status shipped">Shipped</span></td>
+          </tr>
+          <tr>
+            <td>#1004</td>
+            <td>Brahmi Syrup (200ml)</td>
+            <td>19 Aug 2025</td>
+            <td>250</td>
+            <td><span class="status cancelled">Cancelled</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Rudraksh Ayurveda. All rights reserved.</p>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    // In future, orders can be dynamically fetched from backend
+    console.log("Orders page loaded.");
+  </script>
+</body>
+</html>

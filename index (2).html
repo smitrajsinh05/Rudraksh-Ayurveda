@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rudraksh Ayurveda - Authentic Ayurvedic Wellness Products</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+        .logo { font-size: 2rem; font-weight: bold; color: #27ae60; text-decoration: none; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: #2c3e50; font-weight: 500; transition: all 0.3s ease; position: relative; }
+        .nav-links a:hover { color: #27ae60; }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+            background: #27ae60; transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width:100%; }
+        .nav-buttons { display: flex; gap:1rem; align-items: center; }
+        .cart-btn,.auth-btn {
+            background: #27ae60; color:#fff; padding:0.5rem 1rem; border:none;
+            border-radius:25px; cursor:pointer; transition:all 0.3s ease; text-decoration:none;
+        }
+        .cart-btn:hover,.auth-btn:hover { background:#219a52; transform:translateY(-2px); }
+        .auth-btn.logout{background:#e74c3c;}
+        .auth-btn.logout:hover{background:#c0392b;}
+        .user-info{color:#27ae60;font-weight:bold;margin-right:1rem;}
+        /* Modal Styles */
+        .modal {
+            display: none; position: fixed; z-index:2000; left:0; top:0; width:100%; height:100%;
+            background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background:white; margin:5% auto; padding:0; border-radius:15px; width:90%; max-width:450px;
+            box-shadow:0 20px 60px rgba(0,0,0,0.3); overflow:hidden; transform:scale(0.7); opacity:0; transition:all 0.3s ease;
+        }
+        .modal.show .modal-content { transform:scale(1); opacity:1; }
+        .modal-header { background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:2rem;text-align:center;position:relative;}
+        .close {position:absolute;right:1rem;top:1rem;color:white;font-size:2rem;font-weight:bold;cursor:pointer;transition: all 0.3s ease;}
+        .close:hover{transform: rotate(90deg);}
+        .modal-body{padding:2rem;}
+        .form-group{margin-bottom:1.5rem;}
+        .form-group label{display:block;margin-bottom:0.5rem;color:#2c3e50;font-weight:500}
+        .form-group input, .form-group select, .form-group textarea{
+            width:100%;padding:0.8rem;border:2px solid #ecf0f1;border-radius:8px;font-size:1rem;transition:all 0.3s ease;
+        }
+        .form-group input:focus{outline:none;border-color:#27ae60;box-shadow:0 0 0 3px rgba(39,174,96,0.1);}
+        .form-btn{width:100%;background:linear-gradient(135deg,#27ae60,#2ecc71);color:white;padding:1rem;border:none;border-radius:8px;font-size:1.1rem;cursor:pointer;transition:all 0.3s ease;margin-bottom:1rem;}
+        .form-btn:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(39,174,96,0.3);}
+        .switch-form{text-align:center;color:#7f8c8d;}
+        .switch-form a{color:#27ae60;text-decoration:none;font-weight:bold;}
+        .user-type-selector{display:flex;gap:1rem;margin-bottom:1.5rem;}
+        .user-type-option{flex:1;padding:1rem;border:2px solid #ecf0f1;border-radius:8px;text-align:center;cursor:pointer;transition:all 0.3s ease;}
+        .user-type-option.active{border-color:#27ae60;background:rgba(39,174,96,0.1);}
+
+        /* Hero Section */
+        .hero{margin-top:80px;padding:4rem 0;text-align:center;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;position:relative;overflow:hidden;}
+        .hero::before{
+            content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+            background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="leaf" patternUnits="userSpaceOnUse" width="20" height="20"><path d="M10 2C8 4 8 6 10 8C12 6 12 4 10 2Z" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23leaf)"/></svg>');
+        }
+        .hero-content{position:relative;z-index:2;}
+        .hero h1{font-size:3.5rem;margin-bottom:1rem;}
+        .hero p{font-size:1.2rem;margin-bottom:2rem;max-width:600px;margin-left:auto;margin-right:auto;}
+        .cta-btn{background:#f39c12;color:white;padding:1rem 2rem;border:none;border-radius:30px;font-size:1.1rem;cursor:pointer;transition:all 0.3s ease;text-decoration:none;display:inline-block;}
+        .cta-btn:hover{background:#e67e22;transform:translateY(-3px);box-shadow:0 10px25px rgba(243,156,18,0.3);}
+
+        .features{padding:4rem 0;background:white;}
+        .section-title{text-align:center;font-size:2.5rem;margin-bottom:3rem;color:#2c3e50;}
+        .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;}
+        .feature-card{text-align:center;padding:2rem;background:linear-gradient(145deg,#f8f9fa,#e9ecef);border-radius:20px;transition:all .3s ease;cursor:pointer;}
+        .feature-card:hover{transform:translateY(-10px);box-shadow:0 20px40px rgba(0,0,0,0.1);}
+        .feature-icon{width:80px;height:80px;background:linear-gradient(135deg,#27ae60,#2ecc71);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:2rem;}
+
+        .products{padding:4rem 0;background:#f8f9fa;}
+        .products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2rem;margin-top:2rem;}
+        .product-card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 5px15px rgba(0,0,0,0.1);transition:all .3s ease;}
+        .product-card:hover{transform:translateY(-5px);box-shadow:0 15px35px rgba(0,0,0,0.2);}
+        .product-image{height:200px;background:linear-gradient(45deg,#27ae60,#2ecc71);display:flex;align-items:center;justify-content:center;color:white;font-size:3rem;}
+        .product-info{padding:1.5rem;}
+        .product-title{font-size:1.3rem;margin-bottom:0.5rem;color:#2c3e50;}
+        .product-price{font-size:1.2rem;color:#27ae60;font-weight:bold;margin-bottom:1rem;}
+        .product-description{color:#7f8c8d;margin-bottom:1rem;}
+        .add-to-cart{width:100%;background:#3498db;color:white;padding:0.8rem;border:none;border-radius:8px;cursor:pointer;transition:all.3s ease;}
+        .add-to-cart:hover{background:#2980b9;}
+
+        /* Footer & misc */
+        footer {background:#2c3e50;color:white;padding:3rem 0;text-align:center;}
+        .footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin-bottom:2rem;}
+        .footer-section h3{margin-bottom:1rem;color:#27ae60;}
+        .hidden{display:none!important;}
+        .message{position:fixed;top:100px;right:20px;padding:1rem 2rem;border-radius:5px;z-index:1001;max-width:300px;animation:slideIn .3s ease;}
+        .message.success{background:#27ae60;color:white;} .message.error{background:#e74c3c;color:white;} .message.info{background:#3498db;color:white;}
+    </style>
+</head>
+<body>
+    <!-- Floating elements -->
+    <div class="floating-elements">
+        <div class="floating-leaf" style="left:10%;animation-delay:0s;"></div>
+        <div class="floating-leaf" style="left:20%;animation-delay:1s;"></div>
+        <div class="floating-leaf" style="left:30%;animation-delay:2s;"></div>
+        <div class="floating-leaf" style="left:40%;animation-delay:3s;"></div>
+        <div class="floating-leaf" style="left:50%;animation-delay:4s;"></div>
+        <div class="floating-leaf" style="left:60%;animation-delay:5s;"></div>
+        <div class="floating-leaf" style="left:70%;animation-delay:0.5s;"></div>
+        <div class="floating-leaf" style="left:80%;animation-delay:1.5s;"></div>
+        <div class="floating-leaf" style="left:90%;animation-delay:2.5s;"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">🌿 Rudraksh Ayurveda</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="orders.html">Orders</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <span class="user-info hidden" id="userInfo"></span>
+                <a href="cart.html" class="cart-btn">🛒 Cart (0)</a>
+                <a href="#" class="auth-btn" id="loginBtn" onclick="openModal('loginModal')">Login</a>
+                <a href="#" class="auth-btn logout hidden" id="logoutBtn" onclick="logout()">Logout</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- LOGIN/SIGNUP MODALS (same as previous design) -->
+    <!-- Add the full loginModal, signupModal, addProductModal here if you want authentication on index page too. -->
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Ancient Wisdom, Modern Wellness</h1>
+                <p>Discover authentic Ayurvedic products crafted with traditional recipes and premium natural ingredients.</p>
+                <a href="#products" class="cta-btn">Explore Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose Rudraksh Ayurveda?</h2>
+            <div class="features-grid">
+                <div class="feature-card"><div class="feature-icon">🌿</div><h3>Pure Herbs</h3><p>No artificial additives, just nature.</p></div>
+                <div class="feature-card"><div class="feature-icon">👨‍⚕️</div><h3>Expert Formulated</h3><p>Guided by Ayurvedic doctors.</p></div>
+                <div class="feature-card"><div class="feature-icon">🧪</div><h3>Lab Tested</h3><p>Ensuring purity and safety.</p></div>
+                <div class="feature-card"><div class="feature-icon">🚚</div><h3>Fast Delivery</h3><p>2–3 days doorstep shipping.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will load here (via JS or static) -->
+                <div class="product-card">
+                    <div class="product-image">🍯</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Chyawanprash</h3>
+                        <p class="product-price">₹350</p>
+                        <p class="product-description">Immunity booster prepared with traditional recipe.</p>
+                        <button class="add-to-cart" onclick="addToCart('Chyawanprash',350)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">💊</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Triphala Tablets</h3>
+                        <p class="product-price">₹220</p>
+                        <p class="product-description">Supports digestion and detoxification.</p>
+                        <button class="add-to-cart" onclick="addToCart('Triphala',220)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="features" id="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <p style="text-align:center;max-width:700px;margin:auto;">Rudraksh Ayurveda is dedicated to offering Ayurvedic products based on ancient wisdom blended with modern quality standards.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>📧 info@rudrakshayurveda.in</p>
+                    <p>📞 +91 98765 43210</p>
+                    <p>📍 Dehradun, India</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#" style="color:#bdc3c7;">Privacy Policy</a></p>
+                    <p><a href="#" style="color:#bdc3c7;">Terms & Conditions</a></p>
+                    <p><a href="#" style="color:#bdc3c7;">Return Policy</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p>Facebook | Instagram | Twitter</p>
+                    <p>Subscribe to our newsletter for wellness tips!</p>
+                </div>
+            </div>
+            <p>&copy; 2024 Rudraksh Ayurveda. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script>
+    // Simple cart counter
+    let cartCount = 0;
+    function addToCart(name, price){
+        cartCount++;
+        document.querySelector('.cart-btn').innerHTML = `🛒 Cart (${cartCount})`;
+        alert(name+" added to your cart!");
+    }
+</script>
+</body>
+</html>

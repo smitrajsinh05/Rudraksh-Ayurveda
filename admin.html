@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Rudraksh Ayurveda</title>
+  <style>
+    body {margin:0;font-family:'Segoe UI',Tahoma,sans-serif;background:#f4f6f9;color:#333;}
+    header {background:#2c3e50;color:white;padding:1rem 2rem;}
+    nav {display:flex;justify-content:space-between;align-items:center;}
+    .logo{font-size:1.5rem;font-weight:bold;color:white;text-decoration:none;}
+    .nav-links{list-style:none;display:flex;gap:1rem;}
+    .nav-links li a{color:white;text-decoration:none;}
+    .nav-links li a:hover{color:#27ae60;}
+
+    main {padding:2rem;}
+    h1{color:#2c3e50;margin-bottom:1rem;}
+    .dashboard {display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+    
+    .card {
+      background:white;padding:1.5rem;border-radius:10px;
+      box-shadow:0 4px 8px rgba(0,0,0,0.05);
+    }
+    table{width:100%;border-collapse:collapse;margin-top:1rem;}
+    th,td{padding:0.8rem;text-align:left;border-bottom:1px solid #ddd;}
+    th{background:#27ae60;color:white;}
+    .btn{
+      padding:0.4rem 0.8rem;border:none;border-radius:5px;cursor:pointer;
+      color:white;font-size:0.9rem;transition:0.3s;
+    }
+    .btn.add{background:#27ae60;}
+    .btn.edit{background:#2980b9;}
+    .btn.delete{background:#c0392b;}
+    .btn:hover{opacity:0.9;}
+    footer{background:#2c3e50;color:white;text-align:center;padding:1rem;margin-top:2rem;}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo">🌿 Rudraksh Ayurveda</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="orders.html">Orders</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Main -->
+  <main>
+    <h1>Admin Dashboard</h1>
+    <div class="dashboard">
+
+      <!-- Manage Products -->
+      <div class="card">
+        <h2>Manage Products</h2>
+        <button class="btn add" onclick="addProduct()">+ Add Product</button>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Product</th>
+              <th>Price (₹)</th>
+              <th>Stock</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="product-list">
+            <tr>
+              <td>1</td>
+              <td>Chyawanprash (500g)</td>
+              <td>350</td>
+              <td>20</td>
+              <td>
+                <button class="btn edit">Edit</button>
+                <button class="btn delete">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Triphala Powder (200g)</td>
+              <td>180</td>
+              <td>35</td>
+              <td>
+                <button class="btn edit">Edit</button>
+                <button class="btn delete">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Ashwagandha Capsules (60)</td>
+              <td>420</td>
+              <td>15</td>
+              <td>
+                <button class="btn edit">Edit</button>
+                <button class="btn delete">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Manage Orders -->
+      <div class="card">
+        <h2>Manage Orders</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="order-list">
+            <tr>
+              <td>#1001</td>
+              <td>Rahul Sharma</td>
+              <td>Chyawanprash</td>
+              <td>Delivered</td>
+              <td><button class="btn edit">Update</button></td>
+            </tr>
+            <tr>
+              <td>#1002</td>
+              <td>Pooja Verma</td>
+              <td>Triphala</td>
+              <td>Pending</td>
+              <td><button class="btn edit">Update</button></td>
+            </tr>
+            <tr>
+              <td>#1003</td>
+              <td>Arjun Singh</td>
+              <td>Ashwagandha</td>
+              <td>Shipped</td>
+              <td><button class="btn edit">Update</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Rudraksh Ayurveda | Admin Dashboard</p>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    function addProduct() {
+      alert("Add Product functionality will be implemented in backend.");
+    }
+  </script>
+</body>
+</html>

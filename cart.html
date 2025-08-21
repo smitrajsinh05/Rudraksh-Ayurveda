@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart - Rudraksh Ayurveda</title>
+  <style>
+    body {margin:0;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:#f9f9f9;color:#333;}
+    header {background:#2c3e50;color:white;padding:1rem 2rem;position:sticky;top:0;z-index:1000;}
+    nav {display:flex;justify-content:space-between;align-items:center;}
+    nav .logo{font-size:1.5rem;font-weight:bold;color:white;text-decoration:none;}
+    nav .nav-links{list-style:none;display:flex;gap:1rem;margin:0;padding:0;}
+    nav .nav-links li a{color:white;text-decoration:none;}
+    nav .nav-links li a:hover{color:#27ae60;}
+    .nav-buttons{display:flex;gap:1rem;align-items:center;}
+    .cart-btn,.auth-btn{background:#27ae60;color:white;padding:0.5rem 1rem;border-radius:5px;text-decoration:none;transition:background .3s;}
+    .cart-btn:hover,.auth-btn:hover{background:#219150;}
+    main{padding:2rem;}
+    h1{color:#2c3e50;}
+    .cart-container{background:white;padding:2rem;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,0.05);}
+    table{width:100%;border-collapse:collapse;margin-top:1rem;}
+    th,td{padding:1rem;text-align:left;border-bottom:1px solid #ddd;}
+    th{background:#27ae60;color:white;}
+    .cart-total{text-align:right;font-size:1.2rem;margin-top:1rem;}
+    .checkout-btn{background:#27ae60;color:white;padding:0.8rem 1.5rem;border:none;border-radius:5px;cursor:pointer;font-size:1rem;transition:background .3s;}
+    .checkout-btn:hover{background:#219150;}
+    footer{background:#2c3e50;color:white;text-align:center;padding:2rem;margin-top:2rem;}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav>
+      <a href="index.html" class="logo">🌿 Rudraksh Ayurveda</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="orders.html">Orders</a></li>
+      </ul>
+      <div class="nav-buttons">
+        <a href="cart.html" class="cart-btn">🛒 Cart</a>
+      </div>
+    </nav>
+  </header>
+  <!-- Main -->
+  <main>
+    <div class="cart-container">
+      <h1>Your Shopping Cart</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price (₹)</th>
+            <th>Quantity</th>
+            <th>Subtotal (₹)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items">
+          <tr>
+            <td>Chyawanprash (500g)</td>
+            <td>350</td>
+            <td><input type="number" value="1" min="1" class="qty"></td>
+            <td class="subtotal">350</td>
+            <td><button class="remove-btn">Remove</button></td>
+          </tr>
+          <tr>
+            <td>Triphala Powder (200g)</td>
+            <td>180</td>
+            <td><input type="number" value="2" min="1" class="qty"></td>
+            <td class="subtotal">360</td>
+            <td><button class="remove-btn">Remove</button></td>
+          </tr>
+          <tr>
+            <td>Ashwagandha Capsules (60)</td>
+            <td>420</td>
+            <td><input type="number" value="1" min="1" class="qty"></td>
+            <td class="subtotal">420</td>
+            <td><button class="remove-btn">Remove</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="cart-total">
+        <strong>Total: ₹<span id="total">1130</span></strong>
+      </div>
+
+      <div style="text-align:right; margin-top:1rem;">
+        <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Rudraksh Ayurveda. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    function updateTotals() {
+      let rows = document.querySelectorAll("#cart-items tr");
+      let total = 0;
+      rows.forEach(row => {
+        let price = parseFloat(row.cells[1].innerText);
+        let qty = parseInt(row.querySelector(".qty").value);
+        let subtotal = price * qty;
+        row.querySelector(".subtotal").innerText = subtotal;
+        total += subtotal;
+      });
+      document.getElementById("total").innerText = total;
+    }
+
+    document.querySelectorAll(".qty").forEach(input => {
+      input.addEventListener("change", updateTotals);
+    });
+
+    document.querySelectorAll(".remove-btn").forEach(btn => {
+      btn.addEventListener("click", function() {
+        this.closest("tr").remove();
+        updateTotals();
+      });
+    });
+
+    function checkout() {
+      alert("Proceeding to checkout...");
+      window.location.href = "orders.html";
+    }
+  </script>
+</body>
+</html>

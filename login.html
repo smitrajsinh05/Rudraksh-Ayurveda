@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Rudraksh Ayurveda</title>
+  <style>
+    body {
+      margin:0;
+      font-family:'Segoe UI', Tahoma, sans-serif;
+      background:linear-gradient(135deg,#27ae60,#2c3e50);
+      display:flex;justify-content:center;align-items:center;height:100vh;
+    }
+    .container {
+      background:white;padding:2rem;border-radius:12px;
+      box-shadow:0 6px 15px rgba(0,0,0,0.2);
+      width:100%;max-width:400px;text-align:center;
+    }
+    h1 {color:#2c3e50;margin-bottom:1rem;}
+    .form-group {margin-bottom:1rem;text-align:left;}
+    label {display:block;font-weight:bold;margin-bottom:0.3rem;color:#333;}
+    input {
+      width:100%;padding:0.6rem;border:1px solid #ccc;
+      border-radius:6px;font-size:1rem;
+    }
+    .btn {
+      margin-top:1rem;width:100%;padding:0.7rem;
+      border:none;border-radius:6px;cursor:pointer;
+      font-size:1rem;font-weight:bold;color:white;
+      background:#27ae60;transition:0.3s;
+    }
+    .btn:hover {background:#219150;}
+    .links {margin-top:1rem;font-size:0.9rem;}
+    .links a {color:#27ae60;text-decoration:none;}
+    .links a:hover {text-decoration:underline;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌿 Rudraksh Ayurveda</h1>
+    <h2>Login</h2>
+    <form action="#" method="POST">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn">Login</button>
+    </form>
+    <div class="links">
+      <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+      <p><a href="#">Forgot Password?</a></p>
+    </div>
+  </div>
+</body>
+</html>
